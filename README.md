@@ -1,5 +1,17 @@
 # Validator
-A library for string validators values in multilanguage
+A library for string validators values in multilanguage.
+
+[![Version](https://badge.fury.io/gh/h2lsoft%2Fvalidator.svg)](https://badge.fury.io/gh/h2lsoft%2Fvalidator)
+
+## Installation
+
+Install directly via [Composer](https://getcomposer.org):
+```bash
+$ composer require h2lsoft/validator
+```
+
+## Basic Usage
+
 
 ```php
 // simulate POST
@@ -89,5 +101,8 @@ else
 **More information see examples directory**
 
 
+## License
+
+MIT. See full [license](LICENSE).
 
 

@@ -1,0 +1,22 @@
+{
+  "name": "h2lsoft/validator",
+  "description": "",
+  "keywords": ["php", "validator", "form"],
+  "type": "library",
+  "license": "MIT",
+
+  "authors": [
+    {
+      "name": "H2LSoft",
+      "email": "contact@h2lsoft.com"
+    }
+  ],
+
+  "minimum-stability": "stable",
+
+  "autoload": {
+    "psr-4": {"h2lsoft\\Data\\": "src/"}
+  }
+
+
+}
