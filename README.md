@@ -41,6 +41,7 @@ else
 
 ## Rules
 
+### Strings
 * required
 * email
 * mask
@@ -64,6 +65,16 @@ else
 * datetime
 * regex
 * ip
+
+### Files
+
+* fileRequired
+* fileMaxSize
+* fileExtension
+* fileMime
+* fileImage
+* fileImageBase64
+
 
 ## Customisation
 
