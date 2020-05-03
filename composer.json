@@ -1,7 +1,7 @@
 {
   "name": "h2lsoft/validator",
   "description": "",
-  "keywords": ["php", "validator", "form"],
+  "keywords": ["php","data", "validator", "form"],
   "type": "library",
   "license": "MIT",
 
