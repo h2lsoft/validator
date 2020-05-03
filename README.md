@@ -28,7 +28,7 @@ $_POST['regex_test'] = 'abcdef';
 $_POST['conditions'] = 0;
 
 // rules
-$validator = new Validator('en'); // `en` by default but you can change it
+$validator = new \h2lsoft\Data\Validator('en'); // `en` by default but you can change it
 $validator->input('name')->required()->alpha(' '); // space allowed
 $validator->input('email', "email address")->required()->email();
 $validator->input('zip_code', 'zip code')->required()->mask('99999');
