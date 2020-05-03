@@ -67,11 +67,13 @@ else
 
 ## Customisation
 
+* addLocalMessages
 * setInputNames (array)
 * setInputName
 * addError (custom error)
 
 
+More information see examples directory
 
 
 
