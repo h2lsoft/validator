@@ -73,7 +73,9 @@ else
 * addError (custom error)
 
 
-More information see examples directory
+
+
+**More information see examples directory**
 
 
 
