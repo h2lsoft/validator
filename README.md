@@ -1,5 +1,5 @@
 # Validator
-A library of string validators values
+A library for string validators values in multilanguage
 
 ```php
 // simulate POST
