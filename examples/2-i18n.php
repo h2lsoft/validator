@@ -1,22 +1,4 @@
 <?php
-/**
- * @todo> requiredIf
- * @todo> equals
- * @todo> condition
- *
- * @todo> fileRequired
- * @todo> fileImageBase64
- * @todo> fileMaxSize
- * @todo> fileExtension
- * @todo> fileMime
- * @todo> fileImage
- * @todo> fileIsUploaded()
- *
- * @todo> dbUnique
- * @todo> dbExists
- *
- * @todo> _clean
- */
 
 use h2lsoft\Data\Validator;
 
