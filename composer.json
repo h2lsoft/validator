@@ -12,6 +12,9 @@
     }
   ],
 
+  "minimum-stability": "stable",
+
+
   "autoload": {
     "psr-4": {"h2lsoft\\Data\\": "src/"}
   }
