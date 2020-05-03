@@ -59,7 +59,6 @@ else
 * mask
 * in
 * notIn
-* multiple (for array)
 * integer
 * float
 * min
@@ -77,6 +76,15 @@ else
 * datetime
 * regex
 * ip
+
+
+### Array (checkboxes, select multiple)
+
+* multiple
+* between
+* min
+* max
+
 
 ### Files
 
