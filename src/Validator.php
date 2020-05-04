@@ -76,6 +76,12 @@ class Validator
 		return $this;
 	}
 	
+	public function inputGet($name)
+	{
+		$v = (isset($this->values[$name])) ? $this->values[$name] : false;
+		return $v;
+	}
+	
 	public function getInputName($name)
 	{
 		if(isset($this->input_names[$name]))
@@ -284,10 +290,7 @@ class Validator
 	
 	public function multiple()
 	{
-		if($this->escapeChecking())return $this;
-		
-		$v = $this->values[$this->last_input];
-		if(!is_array($v))
+		if(!isset($this->values[$this->last_input]) || !is_array($this->values[$this->last_input]))
 		{
 			$message = (empty($message)) ? "`[FIELD]` must be an array" : $message;
 			$this->addError($message, []);
@@ -763,6 +766,221 @@ class Validator
 		}
 		
 		return $this;
+	}
+	
+	
+	public function sameAs($input_parent, $message='')
+	{
+		if($this->escapeChecking())return $this;
+		
+		$v = $this->values[$this->last_input];
+		
+		if(!isset($this->values[$input_parent]) || $v != $this->values[$input_parent])
+		{
+			$message = (empty($message)) ? "`[FIELD]` must be equal to `[FIELD_PARENT]`" : $message;
+			
+			$params = [];
+			$params['FIELD_PARENT'] = $this->getInputName($input_parent);
+			
+			$this->addError($message, $params);
+		}
+		
+		return $this;
+	}
+	
+	public function requiredIf($input_parent, $value, $message='')
+	{
+		if(
+			isset($this->values[$input_parent]) &&
+				(
+					(!is_array($this->values[$input_parent]) && !empty($this->values[$input_parent])) ||
+					(is_array($this->values[$input_parent]) && count($this->values[$input_parent]) > 0)
+				) &&
+				(
+					(!is_array($value) && $this->values[$input_parent] == $value) ||
+					(is_array($value) && in_array($this->values[$input_parent], $value))
+				)
+		)
+		{
+			return $this->required($message);
+		}
+		
+		return $this;
+	}
+	
+	
+	public function fileRequired($message='')
+	{
+		if(!$this->values)return $this;
+		
+		if(!isset($_FILES[$this->last_input]) || !isset($_FILES[$this->last_input]['size']) || !$_FILES[$this->last_input]['size'])
+		{
+			$message = (empty($message)) ? "`[FIELD]` file is required" : $message;
+			$this->addError($message, []);
+		}
+		
+		return $this;
+	}
+	
+	
+	public function fileExtension($extensions, $message='')
+	{
+		if(!$this->values || !isset($_FILES[$this->last_input]['name']))return $this;
+		
+		$ext = explode('.', $_FILES[$this->last_input]['name']);
+		$ext = strtolower(end($ext));
+		
+		if(!in_array($ext, $extensions))
+		{
+			$message = (empty($message)) ? "`[FIELD]` extension must be `[EXTENSIONS]`" : $message;
+			
+			$params = [];
+			$params['EXTENSIONS'] = join(', ', $extensions);
+			$this->addError($message, $params);
+		}
+		
+		return $this;
+	}
+	
+	public function fileMaxSize($size, $message='')
+	{
+		if(!$this->values || !isset($_FILES[$this->last_input]['size']))return $this;
+		
+		$size_octet = strtolower($size);
+		$size_octet = str_replace(' ', '', $size_octet);
+		
+		// unit conversion
+		$unit = 1;
+		if(strpos($size_octet, 'ko') !== false || strpos($size_octet, 'kb') !== false)
+			$unit = 1000;
+		elseif(strpos($size_octet, 'mo') !== false || strpos($size_octet, 'mb') !== false)
+			$unit = 1000*1000;
+		elseif(strpos($size_octet, 'go') !== false || strpos($size_octet, 'gb') !== false)
+			$unit = 1000*1000*1000;
+		
+		$size_octet = (int)(str_replace(['ko','kb','mo','mb','go','gb'], '', $size_octet)) * $unit;
+		
+		$file_size = $_FILES[$this->last_input]['size'];
+		if($file_size > $size_octet)
+		{
+			$message = (empty($message)) ? "`[FIELD]` file must be lower than `[SIZE]`" : $message;
+			
+			$params = [];
+			$params['SIZE'] = $size;
+			$this->addError($message, $params);
+		}
+		
+		return $this;
+	}
+	
+	
+	public function fileImage($extensions=['jpg', 'jpeg', 'gif', 'png', 'svg'])
+	{
+		$extensions = array_map('strtolower', $extensions);
+		
+		$mimes = [];
+		foreach($extensions as $extension)
+		{
+			$mimes[] = "image/{$extension}";
+			if($extension == 'jpg')
+				$mimes[] = "image/jpeg";
+		}
+		
+		$mimes = array_unique($mimes);
+		return $this->fileExtension($extensions)->fileMime($mimes);
+	}
+	
+	public function fileMime($mimes=[])
+	{
+		if(!$this->values || !isset($_FILES[$this->last_input]['type']))return $this;
+		$mimes = array_map('strtolower', $mimes);
+		
+		$file_mime = $_FILES[$this->last_input]['type'];
+		
+		if(!in_array($file_mime, $mimes))
+		{
+			$message = (empty($message)) ? "`[FIELD]` must be `[MIMES]` (not `[FILE_MIME]`)" : $message;
+			
+			$params = [];
+			$params['MIMES'] = join(', ', $mimes);
+			$params['FILE_MIME'] = $file_mime;
+			$this->addError($message, $params);
+		}
+		
+		return $this;
+	}
+	
+	
+	public function fileUploaded()
+	{
+		if(!$this->values || !isset($_FILES[$this->last_input]['tmp_name']))return $this;
+		
+		if(!@is_uploaded_file($_FILES[$this->last_input]['tmp_name']))
+		{
+			$message = (empty($message)) ? "`[FIELD]` is not an uploaded file" : $message;
+			
+			$params = [];
+			$this->addError($message, $params);
+		}
+		
+		return $this;
+	}
+	
+	public function fileImageBase64($ext='png', $create_file=true)
+	{
+		if(!$this->values)return $this;
+		
+		
+		$error = false;
+		if(!isset($this->values[$this->last_input]))
+			$error = true;
+		else
+		{
+			$v = $this->values[$this->last_input];
+			// split the string on commas
+			// $data[ 0 ] == "data:image/png;base64"
+			// $data[ 1 ] == <actual base64 string>
+			$data = explode(',', $v);
+			
+			if($data[0] != "data:image/{$ext};base64")
+			{
+				$message = (empty($message)) ? "`[FIELD]` must be a valid file" : $message;
+				
+				$params = [];
+				$this->addError($message, $params);
+			}
+			else
+			{
+				$im = imagecreatefromstring(base64_decode($data[1]));
+				if(!$im)
+				{
+					$message = (empty($message)) ? "`[FIELD]` must be a valid file" : $message;
+					
+					$params = [];
+					$this->addError($message, $params);
+				}
+				elseif($create_file)
+				{
+					$tmp_dir = ini_get('upload_tmp_dir') ? ini_get('upload_tmp_dir') : sys_get_temp_dir();
+					$tmp_fname = tempnam($tmp_dir, "BIX");
+					
+					$contents = base64_decode($data[1]);
+					file_put_contents($tmp_fname, $contents);
+					
+					$_FILES[$this->last_input]['type'] = "image/{$ext}";
+					$_FILES[$this->last_input]['name'] = basename($tmp_fname).".{$ext}";
+					$_FILES[$this->last_input]['tmp_name'] = $tmp_fname;
+					$_FILES[$this->last_input]['size'] = strlen($contents);
+					$_FILES[$this->last_input]['error'] = 0;
+				}
+			}
+			
+			
+			
+		}
+		
+		
+		
 	}
 	
 	

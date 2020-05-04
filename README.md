@@ -76,6 +76,8 @@ else
 * datetime
 * regex
 * ip
+* sameAs
+* requiredIf
 
 
 ### Array (checkboxes, select multiple)
@@ -102,7 +104,6 @@ else
 * setInputNames (array)
 * setInputName
 * addError (custom error)
-
 
 
 
