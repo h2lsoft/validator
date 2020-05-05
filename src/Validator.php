@@ -825,7 +825,7 @@ class Validator
 	
 	public function fileExtension($extensions, $message='')
 	{
-		if(!$this->values || !isset($_FILES[$this->last_input]['name']))return $this;
+		if(!$this->values || !isset($_FILES[$this->last_input]['name']) || empty($_FILES[$this->last_input]['name']))return $this;
 		
 		$ext = explode('.', $_FILES[$this->last_input]['name']);
 		$ext = strtolower(end($ext));
@@ -844,7 +844,7 @@ class Validator
 	
 	public function fileMaxSize($size, $message='')
 	{
-		if(!$this->values || !isset($_FILES[$this->last_input]['size']))return $this;
+		if(!$this->values || !isset($_FILES[$this->last_input]['size']) || empty($_FILES[$this->last_input]['name']))return $this;
 		
 		$size_octet = strtolower($size);
 		$size_octet = str_replace(' ', '', $size_octet);
@@ -892,7 +892,7 @@ class Validator
 	
 	public function fileMime($mimes=[])
 	{
-		if(!$this->values || !isset($_FILES[$this->last_input]['type']))return $this;
+		if(!$this->values || !isset($_FILES[$this->last_input]['type']) || empty($_FILES[$this->last_input]['name']))return $this;
 		$mimes = array_map('strtolower', $mimes);
 		
 		$file_mime = $_FILES[$this->last_input]['type'];
@@ -951,7 +951,7 @@ class Validator
 			}
 			else
 			{
-				$im = imagecreatefromstring(base64_decode($data[1]));
+				$im = @imagecreatefromstring(base64_decode($data[1]));
 				if(!$im)
 				{
 					$message = (empty($message)) ? "`[FIELD]` must be a valid file" : $message;
