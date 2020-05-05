@@ -106,6 +106,7 @@ class Validator
 		$tmp['error_count'] = $this->error_count;
 		$tmp['error_stack'] = $this->error_stack;
 		$tmp['error_stack_deep'] = $this->error_stack_deep;
+		$tmp['error_fields'] = $this->error_fields;
 		
 		return $tmp;
 	}
@@ -134,6 +135,9 @@ class Validator
 		$this->error_count++;
 		$this->error_stack[] = $message;
 		$this->error_stack_deep[$input][] = $message;
+		
+		if(!in_array($input, $this->error_fields))
+			$this->error_fields[] = $input;
 		
 		return $this;
 	}
