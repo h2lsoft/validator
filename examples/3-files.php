@@ -16,8 +16,7 @@ $validator->input('CV')->fileRequired()
 
 $validator->input('Photo')->fileRequired()
 		  			   ->fileImage(['jpg'])
-		  			   ->fileMaxSize('150 ko')
-					   ->fileUploaded();
+		  			   ->fileMaxSize('150 ko');
 
 
 $errors = [];
