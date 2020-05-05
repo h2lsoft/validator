@@ -30,14 +30,14 @@ $locales = [
 $validator = new Validator('fr');
 $validator->addLocaleMessages('fr', $locales); // add custom messages
 
-$validator->input('name')->required()->alpha(' '); // space allowed
-$validator->input('email', "email address")->required()->email();
+$validator->input('name', 'nom')->required()->alpha(' '); // space allowed
+$validator->input('email', "mail")->required()->email();
 $validator->input('password', 'mot de passe')->required()->alphaNumeric(' -_!#');
 $validator->input('password2', 'mot de passe 2')->sameAs('password');
-$validator->input('zip_code', 'zip code')->required()->mask('99999');
-$validator->input('choices')->required()->multiple()->in(['banana', 'pear'])->minLength(2);
+$validator->input('zip_code', 'code postal')->required()->mask('99999');
+$validator->input('choices', 'choix')->required()->multiple()->in(['banana', 'pear'])->minLength(2);
 $validator->input('job')->required()->equal('CEO');
-$validator->input('experiences')->requiredIf('job', ['webdesigner', 'CEO'])->minLength(50)->maxLength(800);
+$validator->input('experiences', 'experiences')->requiredIf('job', ['webdesigner', 'CEO'])->minLength(50)->maxLength(800);
 
 if($validator->inputGet('job') == 'webdesigner')
 {
@@ -46,11 +46,11 @@ if($validator->inputGet('job') == 'webdesigner')
 			  ->min(5, "please enter at least 5 websites");
 }
 
-$validator->input('days')->required()->integer()->between(1, 60);
+$validator->input('days', 'jours')->required()->integer()->between(1, 60);
 $validator->input('date')->date('m/d/Y');
-$validator->input('datetime')->required()->datetime('m/d/Y H:i');
-$validator->input('website')->url(FILTER_FLAG_PATH_REQUIRED);
-$validator->input('regex_test')->regex("/^x/i", "`[FIELD]` must start by x");
+$validator->input('datetime', 'date time')->required()->datetime('m/d/Y H:i');
+$validator->input('website', 'site internet')->url(FILTER_FLAG_PATH_REQUIRED);
+$validator->input('regex_test', 'regex test')->regex("/^x/i", "`[FIELD]` must start by x");
 $validator->input('conditions')->accepted();
 
 
