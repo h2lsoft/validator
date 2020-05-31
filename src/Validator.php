@@ -82,6 +82,17 @@ class Validator
 		return $v;
 	}
 	
+	public function inputGetAll()
+	{
+		return $this->values;
+	}
+	
+	public function inputSet($name, $value)
+	{
+		$this->values[$name] = $value;
+		return $this;
+	}
+	
 	public function getInputName($name)
 	{
 		if(isset($this->input_names[$name]))
