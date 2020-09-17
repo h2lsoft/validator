@@ -87,6 +87,7 @@ class Validator
 		return $this->values;
 	}
 	
+	
 	public function inputSet($name, $value)
 	{
 		$this->values[$name] = $value;
@@ -321,7 +322,7 @@ class Validator
 		$error = false;
 		$v = $this->values[$this->last_input];
 		
-		if(is_array($v) || !ctype_digit($v) || ($unsigned && $v < 0)
+		if(is_array($v) || ($v != 0 && !filter_var($v, FILTER_VALIDATE_INT)) || ($unsigned && $v < 0)
 		)
 		{
 			$error = true;
@@ -349,7 +350,7 @@ class Validator
 		$error = false;
 		$v = $this->values[$this->last_input];
 		
-		if(is_array($v) || !filter_var($v, FILTER_VALIDATE_FLOAT) || ($unsigned && $v < 0)
+		if(is_array($v) || ($v != 0 && !filter_var($v, FILTER_VALIDATE_FLOAT)) || ($unsigned && $v < 0)
 		)
 		{
 			$error = true;
@@ -555,7 +556,7 @@ class Validator
 		
 		return $this;
 	}
-
+	
 	public function accepted($message='')
 	{
 		if(!$this->values)return $this;
@@ -766,6 +767,20 @@ class Validator
 		return $this;
 	}
 	
+	public function notRegex($pattern, $message)
+	{
+		if($this->escapeChecking())return $this;
+		
+		$v = $this->values[$this->last_input];
+		
+		if(is_array($v) || (preg_match($pattern, $v)))
+		{
+			$this->addError($this->_ts($message), []);
+		}
+		
+		return $this;
+	}
+	
 	public function ip($php_flags='', $message='')
 	{
 		if($this->escapeChecking())return $this;
@@ -807,14 +822,14 @@ class Validator
 	{
 		if(
 			isset($this->values[$input_parent]) &&
-				(
-					(!is_array($this->values[$input_parent]) && !empty($this->values[$input_parent])) ||
-					(is_array($this->values[$input_parent]) && count($this->values[$input_parent]) > 0)
-				) &&
-				(
-					(!is_array($value) && $this->values[$input_parent] == $value) ||
-					(is_array($value) && in_array($this->values[$input_parent], $value))
-				)
+			(
+				(!is_array($this->values[$input_parent]) && !empty($this->values[$input_parent])) ||
+				(is_array($this->values[$input_parent]) && count($this->values[$input_parent]) > 0)
+			) &&
+			(
+				(!is_array($value) && $this->values[$input_parent] == $value) ||
+				(is_array($value) && in_array($this->values[$input_parent], $value))
+			)
 		)
 		{
 			return $this->required($message);
