@@ -321,7 +321,7 @@ class Validator
 		$error = false;
 		$v = $this->values[$this->last_input];
 		
-		if(is_array($v) || !ctype_digit($v) || ($unsigned && $v <= 0)
+		if(is_array($v) || !ctype_digit($v) || ($unsigned && $v < 0)
 		)
 		{
 			$error = true;
@@ -349,7 +349,7 @@ class Validator
 		$error = false;
 		$v = $this->values[$this->last_input];
 		
-		if(is_array($v) || !filter_var($v, FILTER_VALIDATE_FLOAT) || ($unsigned && $v <= 0)
+		if(is_array($v) || !filter_var($v, FILTER_VALIDATE_FLOAT) || ($unsigned && $v < 0)
 		)
 		{
 			$error = true;
