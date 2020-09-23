@@ -107,6 +107,12 @@ class Validator
 		return $this->error_count;
 	}
 	
+	
+	public function success()
+	{
+		return !$this->hasErrors();
+	}
+	
 	public function fails()
 	{
 		return $this->hasErrors();
