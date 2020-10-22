@@ -6,6 +6,7 @@ use \voku\helper\AntiXSS;
 
 class Validator
 {
+	const VERSION = '1.1.3';
 	const LATINS_CHARS = "éèëêàäâáùüûúîïíöôóñç";
 	
 	private $values = [];
@@ -76,9 +77,9 @@ class Validator
 		return $this;
 	}
 	
-	public function inputGet($name)
+	public function inputGet($name, $default='')
 	{
-		$v = (isset($this->values[$name])) ? $this->values[$name] : false;
+		$v = (isset($this->values[$name])) ? $this->values[$name] : $default;
 		return $v;
 	}
 	
