@@ -6,7 +6,7 @@ use \voku\helper\AntiXSS;
 
 class Validator
 {
-	const LATINS_CHARS = "éèëêàäâáùüûúîïíöôóñ";
+	const LATINS_CHARS = "éèëêàäâáùüûúîïíöôóñç";
 	
 	private $values = [];
 	private $error_count = 0;
@@ -243,7 +243,7 @@ class Validator
 		return $this;
 	}
 	
-	public function in($list)
+	public function in($list, $message='')
 	{
 		if($this->escapeChecking())return $this;
 		
@@ -275,7 +275,7 @@ class Validator
 		return $this;
 	}
 	
-	public function notIn($list)
+	public function notIn($list, $message='')
 	{
 		if($this->escapeChecking())return $this;
 		
@@ -310,7 +310,7 @@ class Validator
 		return $this;
 	}
 	
-	public function multiple()
+	public function multiple($message='')
 	{
 		if(!isset($this->values[$this->last_input]) || !is_array($this->values[$this->last_input]))
 		{
@@ -1018,7 +1018,6 @@ class Validator
 		
 		
 	}
-	
 	
 	
 }
