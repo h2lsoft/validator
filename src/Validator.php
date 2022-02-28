@@ -932,7 +932,8 @@ class Validator
 		if(!$this->values || !isset($_FILES[$this->last_input]['type']) || empty($_FILES[$this->last_input]['name']))return $this;
 		$mimes = array_map('strtolower', $mimes);
 		
-		$file_mime = $_FILES[$this->last_input]['type'];
+		// $file_mime = $_FILES[$this->last_input]['type'];
+		$file_mime = @mime_content_type($v['tmp_name']);
 		
 		if(!in_array($file_mime, $mimes))
 		{
