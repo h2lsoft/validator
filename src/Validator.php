@@ -6,7 +6,7 @@ use \voku\helper\AntiXSS;
 
 class Validator
 {
-	const VERSION = '1.1.3';
+	const VERSION = '1.1.4';
 	const LATINS_CHARS = "éèëêàäâáùüûúîïíöôóñç";
 	
 	private $values = [];
@@ -21,13 +21,27 @@ class Validator
 	private $locale = 'en';
 	private $locale_messages = [];
 	
+	public function setLocale($locale)
+	{
+		$this->locale = $locale;
+		
+		if($this->locale != 'en')
+			$this->locale_messages[$this->locale] = include(__DIR__."/locale/{$this->locale}.php");
+		
+		return $this;
+	}
+	
+	public function setData($data)
+	{
+		$this->values = $data;		
+		return $this;
+	}
 	
 	public function __construct($locale='en', $data='POST')
 	{
 		if(!is_array($data))
 		{
-			if($data == 'POST')
-				$data = $_POST;
+			if($data == 'POST')$data = $_POST;
 		}
 		
 		$this->values = $data;
@@ -623,7 +637,7 @@ class Validator
 			if(!empty($exceptions))
 			{
 				for($i=0; $i < strlen($exceptions); $i++)
-					$v = str_replace($exceptions{$i}, 'x', $v);
+					$v = str_replace($exceptions[$i], 'x', $v);
 			}
 			
 			if($min_allowed && $capital_allowed && !ctype_alpha($v))
@@ -661,6 +675,7 @@ class Validator
 			if($latin_chars_allowed)
 			{
 				$latins = $this::LATINS_CHARS;
+				
 				if(!$min_allowed && $capital_allowed)
 					$exceptions .= strtoupper($latins);
 			}
@@ -668,7 +683,7 @@ class Validator
 			if(!empty($exceptions))
 			{
 				for($i=0; $i < strlen($exceptions); $i++)
-					$v = str_replace($exceptions{$i}, 'x', $v);
+					$v = str_replace($exceptions[$i], 'x', $v);
 			}
 			
 			if($min_allowed && $capital_allowed && !ctype_alpha($v))
