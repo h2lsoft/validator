@@ -6,7 +6,7 @@ use \voku\helper\AntiXSS;
 
 class Validator
 {
-	const VERSION = '1.1.4';
+	const VERSION = '1.1.5';
 	const LATINS_CHARS = "éèëêàäâáùüûúîïíöôóñç";
 	
 	private $values = [];
@@ -136,8 +136,11 @@ class Validator
 	public function result()
 	{
 		$tmp = [];
+		
+		$tmp['error'] = ($this->error_count > 0) ? true : false;
 		$tmp['error_count'] = $this->error_count;
 		$tmp['error_stack'] = $this->error_stack;
+		$tmp['error_stack_html'] = '&bull; '.join("<br>\n&bull; ", $this->error_stack);
 		$tmp['error_stack_deep'] = $this->error_stack_deep;
 		$tmp['error_fields'] = $this->error_fields;
 		
@@ -948,7 +951,7 @@ class Validator
 		$mimes = array_map('strtolower', $mimes);
 		
 		// $file_mime = $_FILES[$this->last_input]['type'];
-		$file_mime = @mime_content_type($v['tmp_name']);
+		$file_mime = @mime_content_type($_FILES[$this->last_input]['tmp_name']);
 		
 		if(!in_array($file_mime, $mimes))
 		{
