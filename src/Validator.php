@@ -2,8 +2,6 @@
 
 namespace h2lsoft\Data;
 
-use \voku\helper\AntiXSS;
-
 class Validator
 {
 	const VERSION = '1.1.5';
