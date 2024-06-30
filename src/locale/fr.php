@@ -45,7 +45,11 @@ return [
 	"`[FIELD]` file must be lower than `[SIZE]`" => "`[FIELD]` doit être inférieur à `[SIZE]`",
 	"`[FIELD]` must be `[MIMES]` (not `[FILE_MIME]`)" => "`[FIELD]` doit être de type `[MIMES]` (non `[FILE_MIME]`)",
 	"`[FIELD]` is not an uploaded file" => "`[FIELD]` doit être un fichier uploadé`)",
-	
+
+	"`[FIELD]` image width must be equal to `[SIZE]`" => "`[FIELD]` image largeur doit être égale à `[SIZE]`",
+	"`[FIELD]` image width must be lower or equal to `[SIZE]`" => "`[FIELD]` image largeur doit être inférieure ou égale à `[SIZE]`",
+	"`[FIELD]` image height must be equal to `[SIZE]`" => "`[FIELD]` image hauteur doit être égale à `[SIZE]`",
+	"`[FIELD]` image height must be lower or equal to `[SIZE]`" => "`[FIELD]` image hauteur doit être inférieure ou égale à `[SIZE]`",
 	
 
 ];
