@@ -1033,7 +1033,7 @@ class Validator
 			
 		}
 		
-		
+		return $this;
 		
 	}
 	
