@@ -980,7 +980,7 @@ class Validator
 		return $this;
 	}
 
-	public function imageWidth($width, $contraint=false, $message='')
+	public function fileImageWidth($width, $contraint=false, $message='')
 	{
 		if(!$this->values || !isset($_FILES[$this->last_input]['tmp_name']))return $this;
 
@@ -1004,7 +1004,7 @@ class Validator
 		return $this;
 	}
 
-	public function imageHeight($height, $contraint=false, $message='')
+	public function fileImageHeight($height, $contraint=false, $message='')
 	{
 		if(!$this->values || !isset($_FILES[$this->last_input]['tmp_name']))return $this;
 
