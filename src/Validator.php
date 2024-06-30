@@ -943,7 +943,7 @@ class Validator
 		return $this->fileExtension($extensions)->fileMime($mimes);
 	}
 	
-	public function fileMime($mimes=[])
+	public function fileMime($mimes=[], $message='')
 	{
 		if(!$this->values || !isset($_FILES[$this->last_input]['type']) || empty($_FILES[$this->last_input]['name']))return $this;
 		$mimes = array_map('strtolower', $mimes);
@@ -965,9 +965,9 @@ class Validator
 	}
 	
 	
-	public function fileUploaded()
+	public function fileUploaded($message='')
 	{
-		if(!$this->values || !isset($_FILES[$this->last_input]['tmp_name']))return $this;
+		if(!$this->values || empty($_FILES[$this->last_input]['size']))return $this;
 		
 		if(!@is_uploaded_file($_FILES[$this->last_input]['tmp_name']))
 		{
@@ -979,8 +979,58 @@ class Validator
 		
 		return $this;
 	}
+
+	public function imageWidth($width, $contraint=false, $message='')
+	{
+		if(!$this->values || !isset($_FILES[$this->last_input]['tmp_name']))return $this;
+
+		list($w, $h) = @getimagesize($_FILES[$this->last_input]['tmp_name']);
+
+		if($contraint && $width != $w)
+		{
+			$message = (empty($message)) ? "`[FIELD]` image width must be equal to `[SIZE]`" : $message;			
+			$params = [];
+			$params['SIZE'] = $width;
+			$this->addError($message, $params);
+		}
+		elseif(!$contraint && $w > $width)
+		{
+			$message = (empty($message)) ? "`[FIELD]` image width must be lower or equal to `[SIZE]`" : $message;
+			$params = [];
+			$params['SIZE'] = $width;
+			$this->addError($message, $params);
+		}
+
+		return $this;
+	}
+
+	public function imageHeight($height, $contraint=false, $message='')
+	{
+		if(!$this->values || !isset($_FILES[$this->last_input]['tmp_name']))return $this;
+
+		list($w, $h) = @getimagesize($_FILES[$this->last_input]['tmp_name']);
+
+		if($contraint && $height != $h)
+		{
+			$message = (empty($message)) ? "`[FIELD]` image height must be equal to `[SIZE]`" : $message;			
+			$params = [];
+			$params['SIZE'] = $height;
+			$this->addError($message, $params);
+		}
+		elseif(!$contraint && $h > $height)
+		{
+			$message = (empty($message)) ? "`[FIELD]` image height must be lower or equal to `[SIZE]`" : $message;
+			$params = [];
+			$params['SIZE'] = $width;
+			$this->addError($message, $params);
+		}
+
+		return $this;
+	}
+
 	
-	public function fileImageBase64($ext='png', $create_file=true)
+	
+	public function fileImageBase64($ext='png', $create_file=true, $message='')
 	{
 		if(!$this->values)return $this;
 		
