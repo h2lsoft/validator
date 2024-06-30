@@ -96,6 +96,8 @@ else
 * fileMime
 * fileImage
 * fileImageBase64
+* fileImageWidth
+* fileImageHeight
 
 
 ## Customisation
