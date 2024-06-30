@@ -982,7 +982,7 @@ class Validator
 
 	public function fileImageWidth($width, $contraint=false, $message='')
 	{
-		if(!$this->values || !isset($_FILES[$this->last_input]['tmp_name']) || empty($_FILES[$this->last_input]['tmp_name'])  || file_exists($_FILES[$this->last_input]['tmp_name']))return $this;
+		if(!$this->values || !isset($_FILES[$this->last_input]['tmp_name']) || empty($_FILES[$this->last_input]['tmp_name'])  || !file_exists($_FILES[$this->last_input]['tmp_name']))return $this;
 
 		list($w, $h) = @getimagesize($_FILES[$this->last_input]['tmp_name']);
 
@@ -1006,7 +1006,7 @@ class Validator
 
 	public function fileImageHeight($height, $contraint=false, $message='')
 	{
-		if(!$this->values || !isset($_FILES[$this->last_input]['tmp_name']) || empty($_FILES[$this->last_input]['tmp_name'])  || file_exists($_FILES[$this->last_input]['tmp_name']))return $this;
+		if(!$this->values || !isset($_FILES[$this->last_input]['tmp_name']) || empty($_FILES[$this->last_input]['tmp_name'])  || !file_exists($_FILES[$this->last_input]['tmp_name']))return $this;
 
 		list($w, $h) = @getimagesize($_FILES[$this->last_input]['tmp_name']);
 
