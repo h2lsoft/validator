@@ -4,7 +4,7 @@ namespace h2lsoft\Data;
 
 class Validator
 {
-	const VERSION = '1.1.5';
+	const VERSION = '1.2.2';
 	const LATINS_CHARS = "éèëêàäâáùüûúîïíöôóñç";
 	
 	private $values = [];
@@ -993,13 +993,13 @@ class Validator
 			$params['SIZE'] = $width;
 			$this->addError($message, $params);
 		}
-		elseif(!$contraint && $w > $width)
+		/*elseif(!$contraint && $w < $width)
 		{
 			$message = (empty($message)) ? "`[FIELD]` image width must be lower or equal to `[SIZE]`" : $message;
 			$params = [];
 			$params['SIZE'] = $width;
 			$this->addError($message, $params);
-		}
+		}*/
 
 		return $this;
 	}
@@ -1017,13 +1017,13 @@ class Validator
 			$params['SIZE'] = $height;
 			$this->addError($message, $params);
 		}
-		elseif(!$contraint && $h > $height)
+		/*elseif(!$contraint && $h < $height)
 		{
 			$message = (empty($message)) ? "`[FIELD]` image height must be lower or equal to `[SIZE]`" : $message;
 			$params = [];
-			$params['SIZE'] = $width;
+			$params['SIZE'] = $height;
 			$this->addError($message, $params);
-		}
+		}*/
 
 		return $this;
 	}
