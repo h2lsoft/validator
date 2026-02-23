@@ -50,6 +50,32 @@ return [
 	"`[FIELD]` image width must be lower or equal to `[SIZE]`" => "`[FIELD]` image largeur doit être inférieure ou égale à `[SIZE]`",
 	"`[FIELD]` image height must be equal to `[SIZE]`" => "`[FIELD]` image hauteur doit être égale à `[SIZE]`",
 	"`[FIELD]` image height must be lower or equal to `[SIZE]`" => "`[FIELD]` image hauteur doit être inférieure ou égale à `[SIZE]`",
-	
+
+	"`[FIELD]` must be a valid IPv4 address" => "`[FIELD]` doit être une adresse IPv4 valide",
+	"`[FIELD]` must be a valid IPv6 address" => "`[FIELD]` doit être une adresse IPv6 valide",
+	"`[FIELD]` must be a valid JSON string" => "`[FIELD]` doit être une chaîne JSON valide",
+	"`[FIELD]` must be a valid JSON array" => "`[FIELD]` doit être un tableau JSON valide",
+	"`[FIELD]` must be a valid JSON object" => "`[FIELD]` doit être un objet JSON valide",
+
+	"`[FIELD]` must be a boolean value" => "`[FIELD]` doit être une valeur booléenne",
+	"`[FIELD]` must be a valid password" => "`[FIELD]` doit être un mot de passe valide",
+	"`[FIELD]` must be at least `[LENGTH]` characters" => "`[FIELD]` doit contenir au moins `[LENGTH]` caractères",
+	"`[FIELD]` must contain at least one uppercase letter" => "`[FIELD]` doit contenir au moins une lettre majuscule",
+	"`[FIELD]` must contain at least one digit" => "`[FIELD]` doit contenir au moins un chiffre",
+	"`[FIELD]` must contain at least one special character" => "`[FIELD]` doit contenir au moins un caractère spécial",
+	"`[FIELD]` must be a valid CSS color" => "`[FIELD]` doit être une couleur CSS valide",
+	"`[FIELD]` must be a valid MAC address" => "`[FIELD]` doit être une adresse MAC valide",
+	"`[FIELD]` must be a valid UUID" => "`[FIELD]` doit être un UUID valide",
+	"`[FIELD]` must be a valid BIC/SWIFT code" => "`[FIELD]` doit être un code BIC/SWIFT valide",
+	"`[FIELD]` must be a valid IBAN" => "`[FIELD]` doit être un IBAN valide",
+	"`[FIELD]` must be a valid currency code" => "`[FIELD]` doit être un code devise valide",
+	"`[FIELD]` must be a valid language code" => "`[FIELD]` doit être un code langue valide",
+	"`[FIELD]` must be a valid country code" => "`[FIELD]` doit être un code pays valide",
+	"`[FIELD]` must be a valid timezone" => "`[FIELD]` doit être un fuseau horaire valide",
+	"`[FIELD]` must be a valid time in format `[FORMAT]`" => "`[FIELD]` doit être une heure valide au format `[FORMAT]`",
+	"`[FIELD]` must be different from `[FIELD_PARENT]`" => "`[FIELD]` doit être différent de `[FIELD_PARENT]`",
+	"`[FIELD]` must be before `[DATE]`" => "`[FIELD]` doit être avant le `[DATE]`",
+	"`[FIELD]` must be after `[DATE]`" => "`[FIELD]` doit être après le `[DATE]`",
+	"Invalid or expired CSRF token" => "Jeton CSRF invalide ou expiré",
 
 ];
