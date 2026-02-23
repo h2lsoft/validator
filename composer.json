@@ -1,7 +1,7 @@
 {
   "name": "h2lsoft/validator",
-  "description": "",
-  "keywords": ["php","data", "validator", "form"],
+  "description": "Fluent data validator with chainable rules and i18n support",
+  "keywords": ["php", "data", "validator", "form", "validation", "i18n"],
   "type": "library",
   "license": "MIT",
 
@@ -12,12 +12,18 @@
     }
   ],
 
-  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.4",
+    "ext-mbstring": "*"
+  },
 
+  "suggest": {
+    "php": ">=8.0 is recommended for best compatibility"
+  },
+
+  "minimum-stability": "stable",
 
   "autoload": {
     "psr-4": {"h2lsoft\\Data\\": "src/"}
   }
-
-
 }
