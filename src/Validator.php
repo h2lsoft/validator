@@ -4,8 +4,6 @@ namespace h2lsoft\Data;
 
 /**
  * Fluent data validator with chainable rules and i18n support.
- *
- * @version 2.0
  */
 class Validator
 {
