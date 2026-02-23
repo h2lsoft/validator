@@ -9,8 +9,8 @@ namespace h2lsoft\Data;
  */
 class Validator
 {
-	const VERSION = '2.0';
-	const LATINS_CHARS = "éèëêàäâáùüûúîïíìöôóòõãñçœýÿ";
+	const VERSION = '2.0.1';
+	const LATINS_CHARS = "éèëêàäâáùüûúîïíìöôóòõãñçýÿ";
 
 	protected array $values = [];
 	protected int $error_count = 0;
@@ -1074,7 +1074,7 @@ class Validator
 			$d = \Datetime::createFromFormat($format, $v);
 			$d_errors = \Datetime::getLastErrors();
 
-			if($d === false || $d_errors === false || $d_errors['warning_count'] > 0 || $d_errors['error_count'] > 0)
+			if($d === false || ($d_errors !== false && ($d_errors['warning_count'] > 0 || $d_errors['error_count'] > 0)))
 				$error = true;
 		}
 
@@ -1115,7 +1115,7 @@ class Validator
 			$d = \Datetime::createFromFormat($format, $v);
 			$d_errors = \Datetime::getLastErrors();
 
-			if($d === false || $d_errors === false || $d_errors['warning_count'] > 0 || $d_errors['error_count'] > 0)
+			if($d === false || ($d_errors !== false && ($d_errors['warning_count'] > 0 || $d_errors['error_count'] > 0)))
 				$error = true;
 		}
 
@@ -1208,7 +1208,7 @@ class Validator
 			$d = \Datetime::createFromFormat($format, $v);
 			$d_errors = \Datetime::getLastErrors();
 
-			if($d === false || $d_errors === false || $d_errors['warning_count'] > 0 || $d_errors['error_count'] > 0)
+			if($d === false || ($d_errors !== false && ($d_errors['warning_count'] > 0 || $d_errors['error_count'] > 0)))
 				$error = true;
 		}
 
