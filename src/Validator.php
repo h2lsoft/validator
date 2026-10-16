@@ -7,7 +7,7 @@ namespace h2lsoft\Data;
  */
 class Validator
 {
-	const VERSION = '2.0.1';
+	const VERSION = '3.0.0';
 	const LATINS_CHARS = "éèëêàäâáùüûúîïíìöôóòõãñçýÿ";
 
 	protected array $values = [];
@@ -337,7 +337,6 @@ class Validator
 	 */
 	public function required(string $message=''): self
 	{
-		if(!$this->values)return $this;
 
 		if(!isset($this->values[$this->last_input]))
 		{
@@ -831,7 +830,6 @@ class Validator
 	 */
 	public function accepted(string $message=''): self
 	{
-		if(!$this->values)return $this;
 
 		$error = false;
 		if(!isset($this->values[$this->last_input]) || is_array($this->values[$this->last_input]) || !in_array($this->values[$this->last_input], ['yes', 'YES', 1]))
@@ -1853,7 +1851,6 @@ class Validator
 	 */
 	public function csrfToken(?string $expected_token=null, string $message='', bool $regenerate=true): self
 	{
-		if(!$this->values)return $this;
 
 		if($expected_token === null)
 			$expected_token = $_SESSION['csrf_token'] ?? '';
@@ -1903,7 +1900,6 @@ class Validator
 	 */
 	public function fileRequired(string $message=''): self
 	{
-		if(!$this->values)return $this;
 
 		if(!isset($_FILES[$this->last_input]) || !isset($_FILES[$this->last_input]['size']) || !$_FILES[$this->last_input]['size'])
 		{

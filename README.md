@@ -16,6 +16,19 @@ Install via [Composer](https://getcomposer.org):
 composer require h2lsoft/validator
 ```
 
+## Upgrade from 2.x
+
+Breaking change: `required()`, `accepted()`, `csrfToken()` and `fileRequired()` are now checked even when the data is empty.
+In 2.x an empty POST (or JSON body) skipped them, so an empty request passed the validation.
+If you build the validator on a GET request to display a form, run the rules only on submit:
+
+```php
+if($request->isMethod('POST'))
+{
+    $v->input('email')->required()->email();
+}
+```
+
 ## Quick Start
 
 ```php
